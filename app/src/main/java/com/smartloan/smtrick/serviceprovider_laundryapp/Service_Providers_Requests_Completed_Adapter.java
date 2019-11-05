@@ -12,16 +12,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import static com.itextpdf.text.factories.GreekAlphabetFactory.getString;
-import static com.smartloan.smtrick.serviceprovider_laundryapp.Constant.STATUS_COMPLETE;
-
-public class Service_Providers_Requests_Approved_Adapter extends RecyclerView.Adapter<Service_Providers_Requests_Approved_Adapter.ViewHolder> {
+public class Service_Providers_Requests_Completed_Adapter extends RecyclerView.Adapter<Service_Providers_Requests_Completed_Adapter.ViewHolder> {
 
     private Context context;
     private List<Requests> uploads;
@@ -34,19 +29,19 @@ public class Service_Providers_Requests_Approved_Adapter extends RecyclerView.Ad
     EditText edtDateTime;
     Services_Adapter services_adapter;
 
-    public Service_Providers_Requests_Approved_Adapter(Context context, List<Requests> uploads) {
+    public Service_Providers_Requests_Completed_Adapter(Context context, List<Requests> uploads) {
         this.uploads = uploads;
         this.context = context;
     }
 
-    public Service_Providers_Requests_Approved_Adapter(List<Requests> mUsers) {
+    public Service_Providers_Requests_Completed_Adapter(List<Requests> mUsers) {
         this.uploads = mUsers;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.serviceproviders_request_approved_layout, parent, false);
+                .inflate(R.layout.serviceproviders_request_completed_layout, parent, false);
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }
@@ -82,32 +77,6 @@ public class Service_Providers_Requests_Approved_Adapter extends RecyclerView.Ad
             }
         });
 
-        holder.completeRequestCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                setLeedStatus(request);
-            }
-            private void setLeedStatus(Requests user) {
-                user.setStatus(STATUS_COMPLETE);
-                Toast.makeText(holder.completeRequestCard.getContext(), "Completed Successfully", Toast.LENGTH_SHORT).show();
-                updateLeed(user.getRequestId(), user.getLeedStatusMap());
-            }
-            private void updateLeed(String requestId, Map leedStatusMap) {
-                leedRepository.updateRequest(requestId, leedStatusMap, new CallBack() {
-                    @Override
-                    public void onSuccess(Object object) {
-
-
-                    }
-
-                    @Override
-                    public void onError(Object object) {
-                        Utility.showLongMessage(holder.completeRequestCard.getContext(), getString(R.string.server_error));
-                    }
-                });
-            }
-        });
 
 
     }
@@ -125,7 +94,7 @@ public class Service_Providers_Requests_Approved_Adapter extends RecyclerView.Ad
         public TextView textViewPinCode;
         public TextView textViewId;
         public TextView txtstatus;
-        public CardView userCard,completeRequestCard;
+        public CardView userCard;
         public Button Request;
 
 
@@ -139,7 +108,6 @@ public class Service_Providers_Requests_Approved_Adapter extends RecyclerView.Ad
             textViewId = (TextView) itemView.findViewById(R.id.user_idvalue);
             txtstatus = (TextView) itemView.findViewById(R.id.request_status1);
             userCard = (CardView) itemView.findViewById(R.id.card_userid);
-            completeRequestCard = (CardView) itemView.findViewById(R.id.card_view_complete);
             Request = (Button) itemView.findViewById(R.id.request);
 
         }

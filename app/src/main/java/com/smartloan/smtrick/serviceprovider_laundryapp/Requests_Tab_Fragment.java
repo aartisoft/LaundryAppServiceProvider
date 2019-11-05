@@ -27,9 +27,13 @@ public class Requests_Tab_Fragment extends Fragment {
         }
         View view = inflater.inflate(R.layout.fragment_reports_tab, container, false);
         viewPager = (ViewPager) view.findViewById(R.id.viewPager);
+        viewPager.setOffscreenPageLimit(3);
+
         viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
         viewPagerAdapter.addFragement(new Fragment_View_Service_Providers_Requests(), "Generated Requests");
         viewPagerAdapter.addFragement(new Fragment_View_Service_Providers_Approved_Requests(), "Approved Requests");
+        viewPagerAdapter.addFragement(new Fragment_View_Service_Providers_Completed_Requests(), "Completed Requests");
+
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         tabLayout.setTabMode(1);

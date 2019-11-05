@@ -50,22 +50,7 @@ public class Constant {
     //********************************************STATUS FLEADS*****************************
     public static final String STATUS_GENERATED = "GENERATED";
     public static final String STATUS_APPROVED = "APPROVED";
-    public static final String STATUS_REJECTED = "REJECTED";
-    public static final String STATUS_VERIFIED = "VERIFIED";
-    public static final String STATUS_SUBMITED = "SUBMITED";
-    public static final String STATUS_DISBUSED = "DISBUSED";
-    public static final String STATUS_SALES_SUBMITED = "SALESSUBMITED";
-    public static final String STATUS_BANK_SUBMITED = "BANKSUBMITED";
-    public static final String STATUS_BANK_APPROVED = "BANKAPPROVED";
-
-    public static final String STATUS_INVOICE_SENT= "SENT";
-    public static final String STATUS_INVOICE_UNPAID = "UNPAID";
-    public static final String STATUS_INVOICE_PAID = "PAID";
-    public static final String STATUS_INVOICE_REJECTED = "REJECT";
-
-    public static final String STATUS_GENERATED_BILL = "GENERATEDBILL";
-    public static final String STATUS_APPROVED_BILL = "APPROVEDBILL";
-    public static final String STATUS_PAID_BILL = "PAIDBILL";
+    public static final String STATUS_COMPLETE = "COMPLETE";
 
     public static final String ROLE_SERVICE_PROVIDER = "SERVICE PROVIDER";
     public static final String ROLE_USER = "USER";
