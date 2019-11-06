@@ -46,6 +46,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:16.0.3'
     implementation 'com.google.firebase:firebase-database:16.0.1'
 
+    implementation 'com.google.firebase:firebase-messaging:16.0.1'
+    compile 'com.mcxiaoke.volley:library:1.0.19'
+
 
     implementation 'com.theartofdev.edmodo:android-image-cropper:1.2.1'
     implementation files('libs/jxl.jar')

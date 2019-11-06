@@ -66,14 +66,16 @@ public class Service_Providers_Requests_Adapter extends RecyclerView.Adapter<Ser
         holder.CardApprove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-       
+
                 setLeedStatus(request);
             }
+
             private void setLeedStatus(Requests user) {
                 user.setStatus(STATUS_APPROVED);
                 Toast.makeText(holder.CardApprove.getContext(), "Approved Successfully", Toast.LENGTH_SHORT).show();
                 updateLeed(user.getRequestId(), user.getLeedStatusMap());
             }
+
             private void updateLeed(String requestId, Map leedStatusMap) {
                 leedRepository.updateRequest(requestId, leedStatusMap, new CallBack() {
                     @Override
@@ -81,6 +83,8 @@ public class Service_Providers_Requests_Adapter extends RecyclerView.Adapter<Ser
 
 
                     }
+
+
 
                     @Override
                     public void onError(Object object) {

@@ -32,6 +32,8 @@ public class LoginActivity extends AppCompatActivity {
     private AppSharedPreference appSharedPreference;
     private DatabaseReference mDatabase;
     private UserRepository userRepository;
+    private LeedRepository leedRepository;
+    String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +48,23 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
 
+//        FirebaseInstanceId.getInstance().getInstanceId()
+//                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+//                        if (!task.isSuccessful()) {
+////                            Log.w(TAG, "getInstanceId failed", task.getException());
+//                            return;
+//                        }
+//
+//                        // Get new Instance ID token
+//                         token = task.getResult().getToken();
+//
+//                    }
+//                });
         // set the view now
         setContentView(R.layout.activity_login);
+        leedRepository = new LeedRepositoryImpl();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -101,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                 if (dataSnapshot.hasChildren()) {
                                     User upload = postSnapshot.getValue(User.class);
-
+//                                    setLeedStatus(upload);
                                     String userid = upload.getUserid();
 
                                     if (inputMobile.getText().toString().equalsIgnoreCase(upload.getNumber()) &&
@@ -124,6 +141,28 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "Login failed Please Register", Toast.LENGTH_SHORT).show();
                         }
                     }
+
+//                    private void setLeedStatus(User upload) {
+//
+//                        upload.setTokan(token);
+//                        updateLeed(upload.getGeneratedId(), upload.getLeedStatusMap());
+//                    }
+
+//                    private void updateLeed(String generatedId, Map leedStatusMap) {
+//                        leedRepository.updateServiceProvider(generatedId, leedStatusMap, new CallBack() {
+//                            @Override
+//                            public void onSuccess(Object object) {
+//
+//                                Toast.makeText(LoginActivity.this, "done", Toast.LENGTH_SHORT).show();
+//
+//                            }
+//
+//                            @Override
+//                            public void onError(Object object) {
+//                                Utility.showLongMessage(getApplicationContext(), getString(R.string.server_error));
+//                            }
+//                        });
+//                    }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
