@@ -137,7 +137,6 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             }
                         } else {
-                            progressDialog.dismissDialog();
                             Toast.makeText(LoginActivity.this, "Login failed Please Register", Toast.LENGTH_SHORT).show();
                         }
                     }
