@@ -44,6 +44,7 @@ public class Fragment_View_Service_Providers_Completed_Requests extends Fragment
   private String uid;
   private AppSharedPreference appSharedPreference;
   private ArrayList<Requests> service_providers;
+  private ArrayList<Requests> service_providers1;
 
   // int[] animationList = {R.anim.layout_animation_up_to_down};
   int i = 0;
@@ -68,6 +69,7 @@ public class Fragment_View_Service_Providers_Completed_Requests extends Fragment
 
     catalogList = new ArrayList<>();
     service_providers = new ArrayList<>();
+    service_providers1 = new ArrayList<>();
 
     getServiceProviders();
 
@@ -133,7 +135,13 @@ public class Fragment_View_Service_Providers_Completed_Requests extends Fragment
         }
       }
 
-      serAdapter(service_providers);
+      int size = service_providers.size() - 1;
+      service_providers1.clear();
+      for (int i = size; i >= 0; i--) {
+        service_providers1.add(service_providers.get(i));
+      }
+
+      serAdapter(service_providers1);
     }
 
     @Override
