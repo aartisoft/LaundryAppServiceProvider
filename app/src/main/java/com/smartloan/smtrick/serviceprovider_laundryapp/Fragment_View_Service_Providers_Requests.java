@@ -1,12 +1,20 @@
 package com.smartloan.smtrick.serviceprovider_laundryapp;
 
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -17,8 +25,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,16 +39,12 @@ import java.util.ArrayList;
 public class Fragment_View_Service_Providers_Requests extends Fragment {
 
   private RecyclerView ServiceRecycler;
-  private DatabaseReference mdataRefpatient;
   private ArrayList<MemberVO> catalogList;
   private ProgressDialog progressDialog;
   private Service_Providers_Requests_Adapter adapter;
   private EditText edtSearch;
   DatabaseReference databaseReference;
   String Language;
-  private FirebaseAuth firebaseAuth;
-  private FirebaseUser Fuser;
-  private String uid;
   private AppSharedPreference appSharedPreference;
   private ArrayList<Requests> service_providers;
   private ArrayList<Requests> service_providers1;
@@ -70,6 +73,42 @@ public class Fragment_View_Service_Providers_Requests extends Fragment {
     catalogList = new ArrayList<>();
     service_providers = new ArrayList<>();
     service_providers1 = new ArrayList<>();
+
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference reference = firebaseDatabase.getReference();
+    reference.child("Requests").addChildEventListener(new ChildEventListener() {
+        @Override
+        public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+//            Requests requests = dataSnapshot.getValue(Requests.class);
+//            if (requests.getServiceProviderId().equalsIgnoreCase(appSharedPreference.getUserid())) {
+//                Toast.makeText(getContext(), "Data changed", Toast.LENGTH_SHORT).show();
+            DisplayNotification(getContext(),"New Order has been received");
+//            }
+
+        }
+
+        @Override
+        public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+        }
+
+        @Override
+        public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+        }
+
+        @Override
+        public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    });
+
 
     getServiceProviders();
 
@@ -111,6 +150,30 @@ public class Fragment_View_Service_Providers_Requests extends Fragment {
     return view;
   }
 
+    public void DisplayNotification(Context context, String message){
+        // Create an explicit intent for an Activity in your app
+        Intent intent = new Intent(getContext(), MainActivity_User.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+
+        Uri NOTIFICATION_SOUND_URI = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + BuildConfig.APPLICATION_ID + "/" + R.raw.fillingyourinbox);
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, "Default")
+                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setContentTitle("New Order")
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
+                // Set the intent that will fire when the user taps the notification
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+
+        // notificationId is a unique int for each notification that you must define
+        notificationManager.notify(1, mBuilder.build());
+    }
+
   private void getServiceProviders() {
     progressDialog.setMessage("Please wait...");
     progressDialog.show();
@@ -149,10 +212,6 @@ public class Fragment_View_Service_Providers_Requests extends Fragment {
 
     }
   };
-
-
-
-
 
   private void serAdapter(ArrayList<Requests> leedsModels) {
     if (leedsModels != null) {
