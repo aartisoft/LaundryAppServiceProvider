@@ -76,20 +76,20 @@ public class Fragment_View_Service_Providers_Requests extends Fragment {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference reference = firebaseDatabase.getReference();
 
-    reference.child("Requests").addValueEventListener(new ValueEventListener() {
-      @Override
-      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-          if (lastObtainedDataSnapshot == null) {
-              DisplayNotification(getContext(), "New Order has been received");
-          }
-          lastObtainedDataSnapshot = dataSnapshot;
-      }
-
-      @Override
-      public void onCancelled(@NonNull DatabaseError databaseError) {
-
-      }
-    });
+//    reference.child("Requests").addValueEventListener(new ValueEventListener() {
+//      @Override
+//      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//          if (lastObtainedDataSnapshot == null) {
+//              DisplayNotification(getContext(), "New Order has been received");
+//          }
+//          lastObtainedDataSnapshot = dataSnapshot;
+//      }
+//
+//      @Override
+//      public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//      }
+//    });
 
 
 //        reference.child("Requests").addChildEventListener(new ChildEventListener() {
