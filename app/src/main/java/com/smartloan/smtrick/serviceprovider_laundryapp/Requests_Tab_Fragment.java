@@ -31,8 +31,8 @@ public class Requests_Tab_Fragment extends Fragment {
 
         viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
         viewPagerAdapter.addFragement(new Fragment_View_Service_Providers_Requests(), "Generated Requests");
-        viewPagerAdapter.addFragement(new Fragment_View_Service_Providers_Approved_Requests(), "Approved Requests");
-        viewPagerAdapter.addFragement(new Fragment_View_Service_Providers_Completed_Requests(), "Completed Requests");
+        viewPagerAdapter.addFragement(new Fragment_View_Service_Providers_Approved_Requests(), "PickUp Requests");
+        viewPagerAdapter.addFragement(new Fragment_View_Service_Providers_Completed_Requests(), "Delivery Requests");
 
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout = (TabLayout) view.findViewById(R.id.tabs);

@@ -197,7 +197,6 @@ public class Update_user_profile_activity extends AppCompatActivity implements V
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                 //displaying success toast
-//                                Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
                                 sRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
                                     public void onSuccess(Uri uri) {

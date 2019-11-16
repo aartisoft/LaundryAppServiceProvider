@@ -127,7 +127,7 @@
                         android:layout_height="wrap_content"
                         android:editable="false"
                         android:focusableInTouchMode="true"
-                        android:hint="@string/hint_password"
+                        android:hint="@string/hint_Role"
                         android:imeOptions="actionUnspecified"
                         android:maxLines="1"
                         android:singleLine="true"

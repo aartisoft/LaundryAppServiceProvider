@@ -15,19 +15,25 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private ProgressBar progressBar;
     private EditText inputMobile, inputPassword;
-    private Button btnSignup, btnLogin, btnReset;
+    private Button btnLogin, btnReset;
     private ProgressDialogClass progressDialog;
     private AppSharedPreference appSharedPreference;
     private DatabaseReference mDatabase;
@@ -40,7 +46,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() != null) {
@@ -48,20 +53,18 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
 
-//        FirebaseInstanceId.getInstance().getInstanceId()
-//                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-//                        if (!task.isSuccessful()) {
-////                            Log.w(TAG, "getInstanceId failed", task.getException());
-//                            return;
-//                        }
-//
-//                        // Get new Instance ID token
-//                         token = task.getResult().getToken();
-//
-//                    }
-//                });
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            return;
+                        }
+                        // Get new Instance ID token
+                        token = task.getResult().getToken();
+
+                    }
+                });
         // set the view now
         setContentView(R.layout.activity_login);
         leedRepository = new LeedRepositoryImpl();
@@ -77,7 +80,6 @@ public class LoginActivity extends AppCompatActivity {
         inputMobile = (EditText) findViewById(R.id.number);
         inputPassword = (EditText) findViewById(R.id.password);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        btnSignup = (Button) findViewById(R.id.btn_signup);
         btnLogin = (Button) findViewById(R.id.btn_login);
         btnReset = (Button) findViewById(R.id.btn_reset_password);
 
@@ -87,12 +89,6 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, "No Internet Connection", Toast.LENGTH_SHORT).show();
         }
 
-//        btnSignup.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(LoginActivity.this, SignupActivity.class));
-//            }
-//        });
 //
 //        btnReset.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -118,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                 if (dataSnapshot.hasChildren()) {
                                     User upload = postSnapshot.getValue(User.class);
-//                                    setLeedStatus(upload);
+                                    setLeedStatus(upload);
                                     String userid = upload.getUserid();
 
                                     if (inputMobile.getText().toString().equalsIgnoreCase(upload.getNumber()) &&
@@ -126,13 +122,13 @@ public class LoginActivity extends AppCompatActivity {
                                         appSharedPreference.addUserDetails(upload);
                                         appSharedPreference.createUserLoginSession();
                                         Toast.makeText(LoginActivity.this, "Login Successfull", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(LoginActivity.this,MainActivity_User.class);
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity_User.class);
                                         startActivity(intent);
                                     } else {
                                         Toast.makeText(LoginActivity.this, "Wrong Password", Toast.LENGTH_SHORT).show();
 
                                     }
-                                }else {
+                                } else {
                                     Toast.makeText(LoginActivity.this, "No User Found", Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -141,27 +137,26 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
 
-//                    private void setLeedStatus(User upload) {
-//
-//                        upload.setTokan(token);
-//                        updateLeed(upload.getGeneratedId(), upload.getLeedStatusMap());
-//                    }
+                    private void setLeedStatus(User upload) {
 
-//                    private void updateLeed(String generatedId, Map leedStatusMap) {
-//                        leedRepository.updateServiceProvider(generatedId, leedStatusMap, new CallBack() {
-//                            @Override
-//                            public void onSuccess(Object object) {
-//
-//                                Toast.makeText(LoginActivity.this, "done", Toast.LENGTH_SHORT).show();
-//
-//                            }
-//
-//                            @Override
-//                            public void onError(Object object) {
-//                                Utility.showLongMessage(getApplicationContext(), getString(R.string.server_error));
-//                            }
-//                        });
-//                    }
+                        upload.setTokan(token);
+                        updateLeed(upload.getGeneratedId(), upload.getLeedStatusMap());
+                    }
+
+                    private void updateLeed(String generatedId, Map leedStatusMap) {
+                        leedRepository.updateServiceProvider(generatedId, leedStatusMap, new CallBack() {
+                            @Override
+                            public void onSuccess(Object object) {
+
+
+                            }
+
+                            @Override
+                            public void onError(Object object) {
+                                Utility.showLongMessage(getApplicationContext(), getString(R.string.server_error));
+                            }
+                        });
+                    }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -213,16 +208,15 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "Login Successfull", Toast.LENGTH_SHORT).show();
                             if (upload.getRole().equalsIgnoreCase("USER")) {
                                 logintoapp();
-                            }else if (upload.getRole().equalsIgnoreCase("SERVICE PROVIDER")){
+                            } else if (upload.getRole().equalsIgnoreCase("SERVICE PROVIDER")) {
                                 logintoapp();
                             }
-                        }else {
+                        } else {
                             Toast.makeText(LoginActivity.this, "Wrong Password", Toast.LENGTH_SHORT).show();
 
                         }
 
                     }
-
 
                 } else {
                     progressDialog.dismissDialog();
@@ -280,27 +274,50 @@ public class LoginActivity extends AppCompatActivity {
                     if (appSharedPreference != null && appSharedPreference.getUserLoginStatus()) {
                         if (appSharedPreference.getGeneratedId() != null && appSharedPreference.getUserid() != null) {
 
-                            String roll = appSharedPreference.getRole();
+                            String number = appSharedPreference.getNumber();
+                            userRepository.readServiceProviderByMobileNumber(number, new CallBack() {
+                                @Override
+                                public void onSuccess(Object object) {
+                                    if (object != null) {
+                                        User Service_Provider = (User) object;
+                                        setLeedStatus(Service_Provider);
+                                        logintoapp();
+                                    }
+                                }
 
-                            if (roll.equalsIgnoreCase("USER")) {
-                                logintoapp();
-                            }else if (roll.equalsIgnoreCase("SERVICE PROVIDER")){
-                                logintoapp();
-                            }
-//                            logintoapp();
-//                            loginTotellecallerApp();
-//                            if (roll.equals("User")) {
-//                                logintoapp();
-//
-//                            } else if (roll.equals("Service Provider")) {
-//                                logintoapp();
-//
-//                            }
+                                @Override
+                                public void onError(Object object) {
+
+                                }
+                            });
+
+
                         }
                     }
                 } catch (Exception e) {
                     ExceptionUtil.logException(e);
                 }
+            }
+        });
+    }
+
+    private void setLeedStatus(User upload) {
+
+        upload.setTokan(token);
+        updateLeed(upload.getGeneratedId(), upload.getLeedStatusMap());
+    }
+
+
+    private void updateLeed(String generatedId, Map leedStatusMap) {
+        leedRepository.updateServiceProvider(generatedId, leedStatusMap, new CallBack() {
+            @Override
+            public void onSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onError(Object object) {
+                Utility.showLongMessage(getApplicationContext(), getString(R.string.server_error));
             }
         });
     }

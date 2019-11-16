@@ -20,6 +20,7 @@
     <string name="hint_email">Email</string>
     <string name="hint_mobile">Mobile Number</string>
     <string name="hint_password">Password</string>
+    <string name="hint_Role">Role</string>
     <string name="hint_name">Fullname</string>
     <string name="btn_login">LOGIN</string>
     <string name="btn_link_to_register">Not a member? Get registered here.</string>
