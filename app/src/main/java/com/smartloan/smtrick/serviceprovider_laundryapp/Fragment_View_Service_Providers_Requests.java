@@ -163,7 +163,6 @@ public class Fragment_View_Service_Providers_Requests extends Fragment {
             }
         });
 
-
         return view;
     }
 

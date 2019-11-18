@@ -215,7 +215,6 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "Wrong Password", Toast.LENGTH_SHORT).show();
 
                         }
-
                     }
 
                 } else {
