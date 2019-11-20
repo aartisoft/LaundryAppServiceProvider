@@ -164,6 +164,7 @@
             app:cardBackgroundColor="@color/card_color"
             app:cardElevation="5dp"
             android:layout_marginTop="3dp"
+            android:layout_marginRight="5dp"
             android:layout_marginBottom="2dp"
             card_view:cardCornerRadius="4dp">
 
