@@ -24,6 +24,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ public class Update_user_profile_activity extends AppCompatActivity implements V
     Button btnUpdate;
     private AppSharedPreference appSharedPreference;
     private ProgressDialogClass progressDialog;
-    ImageView addImages;
+//    ImageView addImages;
 
     private static final int RESULT_LOAD_IMAGE = 1;
     private List<Uri> fileDoneList;
@@ -45,7 +46,9 @@ public class Update_user_profile_activity extends AppCompatActivity implements V
     private StorageReference storageReference;
     LeedRepository leedRepository;
     ArrayList<String> imageList;
+    ArrayList<String> imageList1;
     ArrayList<User> userlist;
+    ImageView profile;
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -69,6 +72,7 @@ public class Update_user_profile_activity extends AppCompatActivity implements V
 
         fileDoneList = new ArrayList<>();
         imageList = new ArrayList<>();
+        imageList1 = new ArrayList<>();
         userlist = new ArrayList<>();
 
         inputUsername = (EditText) findViewById(R.id.username);
@@ -78,14 +82,16 @@ public class Update_user_profile_activity extends AppCompatActivity implements V
         inputPassword = (EditText) findViewById(R.id.password);
         spinnerRole = (EditText) findViewById(R.id.spinnerselectusertype);
 
-        addImages = (ImageView) findViewById(R.id.addcommission);
+//        addImages = (ImageView) findViewById(R.id.addcommission);
+        profile = (ImageView) findViewById(R.id.memberImage);
 
         imagesRecyclerView = (RecyclerView) findViewById(R.id.cropedimageRecyclerView);
 
         btnUpdate = (Button) findViewById(R.id.update_button);
 
         getUserDetails();
-        addImages.setOnClickListener(this);
+//        addImages.setOnClickListener(this);
+        profile.setOnClickListener(this);
         btnUpdate.setOnClickListener(this);
     }
 
@@ -105,6 +111,12 @@ public class Update_user_profile_activity extends AppCompatActivity implements V
                     if (userlist.get(0).getImageList() != null) {
                         imageList.addAll(userlist.get(0).getImageList());
                     }
+                    if (userlist.get(0).getProfileImage() != null){
+                        Picasso.with(getApplicationContext())
+                                .load(userlist.get(0).getProfileImage())
+                                .placeholder(R.drawable.user)
+                                .into(profile);
+                    }
 
                 } else {
 //                    Utility.showTimedSnackBar(Update_user_profile_activity.this, etpassword, getMessage(R.string.login_fail_try_again));
@@ -122,7 +134,7 @@ public class Update_user_profile_activity extends AppCompatActivity implements V
 
     @Override
     public void onClick(View v) {
-        if (v == addImages) {
+        if (v == profile) {
             pickImage();
         } else if (v == btnUpdate) {
             uploadFile();
@@ -201,9 +213,9 @@ public class Update_user_profile_activity extends AppCompatActivity implements V
                                     @Override
                                     public void onSuccess(Uri uri) {
                                         String downloadurl = uri.toString();
-                                        imageList.add(downloadurl);
+                                        imageList1.add(downloadurl);
 
-                                        if (imageList != null && imageList.size() != 0) {
+                                        if (imageList1 != null && imageList1.size() != 0) {
                                             User upload = new User();
                                             upload.setName(inputUsername.getText().toString());
                                             upload.setNumber(inputMobile.getText().toString());
@@ -212,8 +224,9 @@ public class Update_user_profile_activity extends AppCompatActivity implements V
                                             upload.setPassword(inputPassword.getText().toString());
                                             upload.setRole(spinnerRole.getText().toString());
                                             upload.setUserid(appSharedPreference.getUserid());
+                                            upload.setTokan(appSharedPreference.getToken());
                                             upload.setGeneratedId(appSharedPreference.getGeneratedId());
-                                            upload.setImageList(imageList);
+                                            upload.setProfileImage(imageList1.get(0));
 
                                             updateLeed(upload.getGeneratedId(), upload.getLeedStatusMap());
                                             progressDialog.dismiss();

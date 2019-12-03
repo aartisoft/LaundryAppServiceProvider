@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,7 +45,7 @@ public class Fragment_Add_Services extends Fragment implements AdapterView.OnIte
     ViewServicesAdapter serviceAdapter;
 
     RecyclerView CommissionRecycle;
-    ImageView AddCommission;
+//    ImageView AddCommission;
 
     int j = 0;
 
@@ -78,7 +77,7 @@ public class Fragment_Add_Services extends Fragment implements AdapterView.OnIte
         leedRepository = new LeedRepositoryImpl();
 
         CommissionRecycle = (RecyclerView) view.findViewById(R.id.recycler_view_commission);
-        AddCommission = (ImageView) view.findViewById(R.id.addcommission);
+//        AddCommission = (ImageView) view.findViewById(R.id.addcommission);
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();

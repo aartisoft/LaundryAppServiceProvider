@@ -25,6 +25,7 @@ public class AppSharedPreference {
     private String ADDRESS = "ADDRESS";
     private String PINCODE = "PINCODE";
     private String ROLE = "ROLE";
+    private String TOKEN = "TOKEN";
 //    private String TOKAN = "TOKAN";
     private String GENDER = "GENDER";
     private String AGENT_ID = "AGENT_ID";
@@ -60,6 +61,8 @@ public class AppSharedPreference {
 //                editor.putString(ADDRESS, (user.getAddress()));
             if (user.getRole() != null)
                 editor.putString(ROLE, (user.getRole()));
+            if (user.getTokan() != null)
+                editor.putString(TOKEN, (user.getTokan()));
 //            if (user.getTokan() != null)
 //                editor.putString(TOKAN, (user.getTokan()));
 //            if (user.getGender() != null)
@@ -101,9 +104,9 @@ public class AppSharedPreference {
         return (sharedPref.getString(ROLE, ""));
     }
 
-//    public String getTOKAN() {
-//        return (sharedPref.getString(TOKAN, ""));
-//    }
+    public String getToken() {
+        return (sharedPref.getString(TOKEN, ""));
+    }
 
 
     public String getUserid() { return (sharedPref.getString(USER_ID, "2iXUwm71jKbi0yy3594PTOTHgbR2")); }

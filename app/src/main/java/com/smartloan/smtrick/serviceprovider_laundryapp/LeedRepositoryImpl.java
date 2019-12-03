@@ -293,7 +293,7 @@ public class LeedRepositoryImpl extends FirebaseTemplateRepository implements Le
 
     @Override
     public void updateUserProfile(String leedId, Map leedsMap, final CallBack callBack) {
-        final DatabaseReference databaseReference = Constants.USERS_TABLE_REF.child(leedId);
+        final DatabaseReference databaseReference = Constant.SERVICE_PROVIDER_TABLE_REF.child(leedId);
         fireBaseUpdateChildren(databaseReference, leedsMap, new CallBack() {
             @Override
             public void onSuccess(Object object) {
