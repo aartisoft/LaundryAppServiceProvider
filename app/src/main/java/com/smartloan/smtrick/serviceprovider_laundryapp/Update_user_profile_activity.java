@@ -152,43 +152,43 @@ public class Update_user_profile_activity extends AppCompatActivity implements V
     }
 
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        @Override
+        public void onActivityResult(int requestCode, int resultCode, Intent data) {
+            super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK) {
+            if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK) {
 
-            if (data.getClipData() != null) {
+                if (data.getClipData() != null) {
 
-                int totalItemsSelected = data.getClipData().getItemCount();
+                    int totalItemsSelected = data.getClipData().getItemCount();
 
-                for (int i = 0; i < totalItemsSelected; i++) {
+                    for (int i = 0; i < totalItemsSelected; i++) {
 
-                    Uri fileUri = data.getClipData().getItemAt(i).getUri();
-                    fileDoneList.add(data.getClipData().getItemAt(i).getUri());
+                        Uri fileUri = data.getClipData().getItemAt(i).getUri();
+                        fileDoneList.add(data.getClipData().getItemAt(i).getUri());
 
-                    //String fileName = getFileName(fileUri);
+                        //String fileName = getFileName(fileUri);
+                    }
+                    uploadListAdapter = new UploadListAdapter(Update_user_profile_activity.this, fileDoneList);
+                    imagesRecyclerView.setLayoutManager(new LinearLayoutManager(Update_user_profile_activity.this, LinearLayoutManager.HORIZONTAL, true));
+                    imagesRecyclerView.setHasFixedSize(true);
+                    imagesRecyclerView.setAdapter(uploadListAdapter);
+
+                } else if (data.getData() != null) {
+
+                    Uri image = data.getData();
+                    fileDoneList.add(image);
+
+                    uploadListAdapter = new UploadListAdapter(Update_user_profile_activity.this, fileDoneList);
+                    imagesRecyclerView.setLayoutManager(new LinearLayoutManager(Update_user_profile_activity.this, LinearLayoutManager.HORIZONTAL, true));
+                    imagesRecyclerView.setHasFixedSize(true);
+                    imagesRecyclerView.setAdapter(uploadListAdapter);
+
+                    Toast.makeText(getApplicationContext(), "Selected Single File", Toast.LENGTH_SHORT).show();
+
                 }
-                uploadListAdapter = new UploadListAdapter(Update_user_profile_activity.this, fileDoneList);
-                imagesRecyclerView.setLayoutManager(new LinearLayoutManager(Update_user_profile_activity.this, LinearLayoutManager.HORIZONTAL, true));
-                imagesRecyclerView.setHasFixedSize(true);
-                imagesRecyclerView.setAdapter(uploadListAdapter);
-
-            } else if (data.getData() != null) {
-
-                Uri image = data.getData();
-                fileDoneList.add(image);
-
-                uploadListAdapter = new UploadListAdapter(Update_user_profile_activity.this, fileDoneList);
-                imagesRecyclerView.setLayoutManager(new LinearLayoutManager(Update_user_profile_activity.this, LinearLayoutManager.HORIZONTAL, true));
-                imagesRecyclerView.setHasFixedSize(true);
-                imagesRecyclerView.setAdapter(uploadListAdapter);
-
-                Toast.makeText(getApplicationContext(), "Selected Single File", Toast.LENGTH_SHORT).show();
-
             }
         }
-    }
 
     private void uploadFile() {
         //checking if file is available
