@@ -25,13 +25,36 @@
                 android:background="@color/white"
                 android:orientation="vertical">
 
-<!--                <ImageView-->
-<!--                    android:id="@+id/addcommission"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginLeft="250dp"-->
-<!--                    android:gravity="left"-->
-<!--                    android:src="@drawable/plus_button" />-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtstatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="3dp"
+                        android:text="off"
+                        android:gravity="center"
+                        android:layout_marginTop="12dp"
+                        android:textSize="12dp"
+                        android:textColor="@color/mainTextColor"/>
+
+                    <ImageView
+                    android:id="@+id/status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/off"
+                    android:padding="5dp"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center"/>
+
+                </LinearLayout>
+
+
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/memberImage"
@@ -41,9 +64,8 @@
                     android:layout_gravity="center"
                     android:src="@drawable/user"
                     android:layout_marginTop="10dp"
-                    android:layout_weight="70"
+                    android:layout_weight="20"
                     app:civ_border_width="3dp" />
-
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"

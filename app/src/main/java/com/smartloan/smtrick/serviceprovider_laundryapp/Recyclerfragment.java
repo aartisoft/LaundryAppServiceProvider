@@ -94,7 +94,7 @@ public class Recyclerfragment extends AppCompatActivity {
                 R.drawable.laminate1,
                 R.drawable.naturalfloor,
                 R.drawable.naturalfloor2,
-                R.drawable.naturalfloor3,
+                R.drawable.laundrylogo,
                 R.drawable.vinyfloor,
                 R.drawable.waterfrooffloor,};
 

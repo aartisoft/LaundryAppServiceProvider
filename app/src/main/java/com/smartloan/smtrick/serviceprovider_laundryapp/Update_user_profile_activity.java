@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -48,7 +50,10 @@ public class Update_user_profile_activity extends AppCompatActivity implements V
     ArrayList<String> imageList;
     ArrayList<String> imageList1;
     ArrayList<User> userlist;
-    ImageView profile;
+    User user;
+    ImageView profile,imgStatus;
+    TextView txtStatus;
+    boolean isPlay = true;
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -84,15 +89,17 @@ public class Update_user_profile_activity extends AppCompatActivity implements V
 
 //        addImages = (ImageView) findViewById(R.id.addcommission);
         profile = (ImageView) findViewById(R.id.memberImage);
-
+        imgStatus = (ImageView) findViewById(R.id.status);
         imagesRecyclerView = (RecyclerView) findViewById(R.id.cropedimageRecyclerView);
 
         btnUpdate = (Button) findViewById(R.id.update_button);
+        txtStatus = (TextView) findViewById(R.id.txtstatus);
 
         getUserDetails();
 //        addImages.setOnClickListener(this);
         profile.setOnClickListener(this);
         btnUpdate.setOnClickListener(this);
+        imgStatus.setOnClickListener(this);
     }
 
     private void getUserDetails() {
@@ -102,12 +109,23 @@ public class Update_user_profile_activity extends AppCompatActivity implements V
             public void onSuccess(Object object) {
                 if (object != null) {
                     userlist = (ArrayList<User>) object;
+                    user = userlist.get(0);
                     inputUsername.setText(userlist.get(0).getName());
                     inputMobile.setText(userlist.get(0).getNumber());
                     inputAddress.setText(userlist.get(0).getAddress());
                     inputPinCode.setText(userlist.get(0).getPincode());
                     inputPassword.setText(userlist.get(0).getPassword());
                     spinnerRole.setText(userlist.get(0).getRole());
+                    txtStatus.setText(userlist.get(0).getStatus());
+                    String status = txtStatus.getText().toString();
+                    if (status.equalsIgnoreCase(Constant.USER_STATUS_ACTIVE)){
+                        isPlay = false;
+                        imgStatus.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.on));
+                    }else if (status.equalsIgnoreCase(Constant.USER_STATUS_DEACTIVE)){
+                        isPlay = true;
+                        imgStatus.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.off));
+                    }
+
                     if (userlist.get(0).getImageList() != null) {
                         imageList.addAll(userlist.get(0).getImageList());
                     }
@@ -138,6 +156,30 @@ public class Update_user_profile_activity extends AppCompatActivity implements V
             pickImage();
         } else if (v == btnUpdate) {
             uploadFile();
+        }
+        else if (v == imgStatus){
+
+            if(isPlay){
+                imgStatus.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.on));
+                txtStatus.setText("On");
+                setLeedStatus(user,"Active");
+            }else{
+                imgStatus.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.off));
+                txtStatus.setText("Off");
+                setLeedStatus(user,"DeActive");
+            }
+
+            isPlay = !isPlay; // reverse
+        }
+    }
+
+    private void setLeedStatus(User user,String status) {
+        if (status.equalsIgnoreCase("Active")) {
+            user.setStatus(Constant.USER_STATUS_ACTIVE);
+            updateLeed(user.getGeneratedId(), user.getLeedStatusMap());
+        }else if (status.equalsIgnoreCase("DeActive")) {
+            user.setStatus(Constant.USER_STATUS_DEACTIVE);
+            updateLeed(user.getGeneratedId(), user.getLeedStatusMap());
         }
     }
 

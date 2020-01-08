@@ -40,7 +40,7 @@ public class firebaseMessagingService extends FirebaseMessagingService {
         Uri NOTIFICATION_SOUND_URI = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + BuildConfig.APPLICATION_ID + "/" + R.raw.fillingyourinbox);
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, "Default")
-                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setSmallIcon(R.drawable.album1)
                 .setContentTitle("My notification")
                 .setContentText(message)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
