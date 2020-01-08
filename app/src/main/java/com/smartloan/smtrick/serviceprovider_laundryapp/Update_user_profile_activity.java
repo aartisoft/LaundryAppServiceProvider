@@ -121,9 +121,11 @@ public class Update_user_profile_activity extends AppCompatActivity implements V
                     if (status.equalsIgnoreCase(Constant.USER_STATUS_ACTIVE)){
                         isPlay = false;
                         imgStatus.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.on));
+                        txtStatus.setText(Constant.USER_STATUS_ACTIVE);
                     }else if (status.equalsIgnoreCase(Constant.USER_STATUS_DEACTIVE)){
                         isPlay = true;
                         imgStatus.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.off));
+                        txtStatus.setText(Constant.USER_STATUS_DEACTIVE);
                     }
 
                     if (userlist.get(0).getImageList() != null) {
