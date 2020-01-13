@@ -52,5 +52,6 @@ public class Constants {
     public static final DatabaseReference MEMBERS_TABLE_REF = DATABASE.getReference("Members");
     public static final DatabaseReference RELATIVES_TABLE_REF = DATABASE.getReference("Relations");
     public static final DatabaseReference USERS_TABLE_REF = DATABASE.getReference("users");
+    public static final String FCM_PUSH_URL = "https://fcm.googleapis.com/fcm/send";
 
 }

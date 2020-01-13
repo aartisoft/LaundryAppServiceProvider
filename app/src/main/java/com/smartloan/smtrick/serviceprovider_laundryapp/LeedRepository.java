@@ -11,7 +11,6 @@ public interface LeedRepository {
 
     void updateUser(final String userid, final Map leedsMap, final CallBack callBack);
 
-
     void readRequestUser(final String userId, final CallBack callback);
 
     void readActiveUser(final String userId, final CallBack callback);
@@ -36,4 +35,5 @@ public interface LeedRepository {
 
     void updateServiceProvider(final String leedId, final Map leedsMap, final CallBack callBack);
 
+    void readAdmin(final CallBack callback);
 }

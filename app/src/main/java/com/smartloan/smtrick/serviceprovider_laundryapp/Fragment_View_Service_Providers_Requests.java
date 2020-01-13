@@ -76,56 +76,6 @@ public class Fragment_View_Service_Providers_Requests extends Fragment {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference reference = firebaseDatabase.getReference();
 
-//    reference.child("Requests").addValueEventListener(new ValueEventListener() {
-//      @Override
-//      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//          if (lastObtainedDataSnapshot == null) {
-//              DisplayNotification(getContext(), "New Order has been received");
-//          }
-//          lastObtainedDataSnapshot = dataSnapshot;
-//      }
-//
-//      @Override
-//      public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//      }
-//    });
-
-
-//        reference.child("Requests").addChildEventListener(new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//
-//                Requests requests = dataSnapshot.getValue(Requests.class);
-//                if (requests.getServiceProviderId() != null) {
-//                    if (requests.getServiceProviderId().equalsIgnoreCase(appSharedPreference.getUserid())) {
-//                        DisplayNotification(getContext(), "New Order has been received");
-//                    }
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//
-//            }
-//
-//            @Override
-//            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-//
-//            }
-//
-//            @Override
-//            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-
 
         getServiceProviders();
 

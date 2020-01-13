@@ -187,48 +187,20 @@ public class MainActivity_User extends AppCompatActivity
         int id = item.getItemId();
         //NOTE: creating fragment object
         Fragment fragment = null;
-//        if (id == R.id.serviceproviders) {
-//            getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame,
-//                    new Fragment_View_Service_Providers()).commit();
-////            Intent intent = new Intent(MainActivity_User.this, dummyActivity.class);
-////            startActivity(intent);
-//
-//        } else
+
             if (id == R.id.requests) {
 
             getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame,
                     new Requests_Tab_Fragment()).commit();
 
-        }
-//        else
-//            if (id == R.id.user_requests) {
-//
-//            getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame,
-//                    new Users_Requests_Tab_Fragment()).commit();
-//
-//        } else
-//            if (id == R.id.users) {
-//
-//            getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame,
-//                    new Admin_Users_Tab_Fragment()).commit();
-//
-//        } else
-//            if (id == R.id.addcategory) {
-//
-//            getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame,
-//                    new Fragment_Add_Categories()).commit();
-//
-//        }else
-            if (id == R.id.services) {
+        }if (id == R.id.services) {
 
             getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame,
                     new Fragment_Add_Services()).commit();
 
         }
-        else
-            if (id == R.id.logout) {
+        else if (id == R.id.logout) {
 
-//             clearDataWithSignOut();
             appSharedPreference.clear();
             FirebaseAuth.getInstance().signOut();
             finish();

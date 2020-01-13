@@ -271,6 +271,8 @@ public class Update_user_profile_activity extends AppCompatActivity implements V
                                             upload.setTokan(appSharedPreference.getToken());
                                             upload.setGeneratedId(appSharedPreference.getGeneratedId());
                                             upload.setProfileImage(imageList1.get(0));
+                                            upload.setImageList(user.getImageList());
+                                            upload.setStatus(user.getStatus());
 
                                             updateLeed(upload.getGeneratedId(), upload.getLeedStatusMap());
                                             progressDialog.dismiss();

@@ -483,4 +483,32 @@ public class LeedRepositoryImpl extends FirebaseTemplateRepository implements Le
             }
         });
     }
+
+    @Override
+    public void readAdmin(final CallBack callBack) {
+        final Query query = Constant.ADMIN_TABLE_REF;
+        fireBaseNotifyChange(query, new CallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                if (object != null) {
+                    DataSnapshot dataSnapshot = (DataSnapshot) object;
+                    if (dataSnapshot.getValue() != null & dataSnapshot.hasChildren()) {
+                        ArrayList<User> leedsModelArrayList = new ArrayList<>();
+                        for (DataSnapshot suggestionSnapshot : dataSnapshot.getChildren()) {
+                            User user = suggestionSnapshot.getValue(User.class);
+                            leedsModelArrayList.add(user);
+                        }
+                        callBack.onSuccess(leedsModelArrayList);
+                    } else {
+                        callBack.onSuccess(null);
+                    }
+                }
+            }
+
+            @Override
+            public void onError(Object object) {
+                callBack.onError(object);
+            }
+        });
+    }
 }
