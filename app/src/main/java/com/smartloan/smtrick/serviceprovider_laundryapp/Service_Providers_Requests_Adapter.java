@@ -76,7 +76,7 @@ public class Service_Providers_Requests_Adapter extends RecyclerView.Adapter<Ser
 
         holder.textViewName.setText(request.getDate());
         holder.textViewMobile.setText(request.getUserName());
-        holder.textViewAddress.setText(request.getUserAddress());
+//        holder.textViewAddress.setText(request.getUserAddress());
         holder.textViewPinCode.setText(request.getUserMobile());
         holder.textViewId.setText(request.getUserPinCode());
 
@@ -223,7 +223,7 @@ public class Service_Providers_Requests_Adapter extends RecyclerView.Adapter<Ser
 
         public TextView textViewName;
         public TextView textViewMobile;
-        public TextView textViewAddress;
+//        public TextView textViewAddress;
         public TextView textViewPinCode;
         public TextView textViewId;
         public CardView userCard;
@@ -236,7 +236,7 @@ public class Service_Providers_Requests_Adapter extends RecyclerView.Adapter<Ser
 
             textViewName = (TextView) itemView.findViewById(R.id.namevalue);
             textViewMobile = (TextView) itemView.findViewById(R.id.user_mobilevalue);
-            textViewAddress = (TextView) itemView.findViewById(R.id.user_addressvalue);
+//            textViewAddress = (TextView) itemView.findViewById(R.id.user_addressvalue);
             textViewPinCode = (TextView) itemView.findViewById(R.id.user_pincodevalue);
             textViewId = (TextView) itemView.findViewById(R.id.user_idvalue);
             userCard = (CardView) itemView.findViewById(R.id.card_userid);

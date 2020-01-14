@@ -59,7 +59,7 @@ public class Service_Providers_Requests_Approved_Adapter extends RecyclerView.Ad
 
         holder.textViewName.setText(request.getDate());
         holder.textViewMobile.setText(request.getUserName());
-        holder.textViewAddress.setText(request.getUserAddress());
+//        holder.textViewAddress.setText(request.getUserAddress());
         holder.textViewPinCode.setText(request.getUserMobile());
         holder.textViewId.setText(request.getUserPinCode());
         holder.txtstatus.setText(request.getStatus());
@@ -121,7 +121,7 @@ public class Service_Providers_Requests_Approved_Adapter extends RecyclerView.Ad
 
         public TextView textViewName;
         public TextView textViewMobile;
-        public TextView textViewAddress;
+//        public TextView textViewAddress;
         public TextView textViewPinCode;
         public TextView textViewId;
         public TextView txtstatus;
@@ -134,7 +134,7 @@ public class Service_Providers_Requests_Approved_Adapter extends RecyclerView.Ad
 
             textViewName = (TextView) itemView.findViewById(R.id.namevalue);
             textViewMobile = (TextView) itemView.findViewById(R.id.user_mobilevalue);
-            textViewAddress = (TextView) itemView.findViewById(R.id.user_addressvalue);
+//            textViewAddress = (TextView) itemView.findViewById(R.id.user_addressvalue);
             textViewPinCode = (TextView) itemView.findViewById(R.id.user_pincodevalue);
             textViewId = (TextView) itemView.findViewById(R.id.user_idvalue);
             txtstatus = (TextView) itemView.findViewById(R.id.request_status1);
