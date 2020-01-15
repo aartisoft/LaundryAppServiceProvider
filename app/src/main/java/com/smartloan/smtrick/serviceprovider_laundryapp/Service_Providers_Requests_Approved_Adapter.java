@@ -57,6 +57,7 @@ public class Service_Providers_Requests_Approved_Adapter extends RecyclerView.Ad
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final Requests request = uploads.get(position);
+        String id = request.getRequestId();
         appSharedPreference = new AppSharedPreference(holder.userCard.getContext());
         leedRepository = new LeedRepositoryImpl();
 
@@ -68,6 +69,7 @@ public class Service_Providers_Requests_Approved_Adapter extends RecyclerView.Ad
         holder.txtstatus.setText(request.getStatus());
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("RequestsApproved");
+        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("RequestsCompleted");
 
         holder.userCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,12 +92,12 @@ public class Service_Providers_Requests_Approved_Adapter extends RecyclerView.Ad
         holder.completeRequestCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                request.setRequestId(ref1.push().getKey());
 //                setLeedStatus(request);
                 leedRepository.sendRequestToComplete(request, new CallBack() {
                     @Override
                     public void onSuccess(Object object) {
-                        ref.child(request.getRequestId()).removeValue();
+                        ref.child(id).removeValue();
                     }
 
                     @Override

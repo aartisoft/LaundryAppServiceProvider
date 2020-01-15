@@ -73,6 +73,7 @@ public class Service_Providers_Requests_Adapter extends RecyclerView.Adapter<Ser
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final Requests request = uploads.get(position);
+        String id = request.getRequestId();
         appSharedPreference = new AppSharedPreference(holder.userCard.getContext());
         leedRepository = new LeedRepositoryImpl();
 
@@ -83,11 +84,12 @@ public class Service_Providers_Requests_Adapter extends RecyclerView.Adapter<Ser
         holder.textViewId.setText(request.getUserPinCode());
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Requests");
+        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("RequestsApproved");
 
         holder.CardApprove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                request.setRequestId(ref1.push().getKey());
 //                setLeedStatus(request);
                 leedRepository.sendRequestToApproved(request, new CallBack() {
                     @Override
@@ -177,7 +179,7 @@ public class Service_Providers_Requests_Adapter extends RecyclerView.Adapter<Ser
 
                             }
                         });
-                        ref.child(request.getRequestId()).removeValue();
+                        ref.child(id).removeValue();
                     }
 
                     @Override
@@ -325,7 +327,7 @@ public class Service_Providers_Requests_Adapter extends RecyclerView.Adapter<Ser
 
         public TextView textViewName;
         public TextView textViewMobile;
-//        public TextView textViewAddress;
+        //        public TextView textViewAddress;
         public TextView textViewPinCode;
         public TextView textViewId;
         public CardView userCard;
