@@ -114,7 +114,7 @@ public class Fragment_View_Service_Providers_Approved_Requests extends Fragment 
   private void getServiceProviders() {
     progressDialog.setMessage("Please wait...");
     progressDialog.show();
-    Query query = FirebaseDatabase.getInstance().getReference("Requests").orderByChild("serviceProviderId").equalTo(appSharedPreference.getUserid());
+    Query query = FirebaseDatabase.getInstance().getReference("RequestsApproved").orderByChild("serviceProviderId").equalTo(appSharedPreference.getUserid());
 
     query.addValueEventListener(valueEventListener);
   }
@@ -128,11 +128,8 @@ public class Fragment_View_Service_Providers_Approved_Requests extends Fragment 
       for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
         Requests requests = postSnapshot.getValue(Requests.class);
 
-        if (requests.getStatus() != null) {
-          if (requests.getStatus().equalsIgnoreCase(Constant.STATUS_APPROVED)) {
             service_providers.add(requests);
-          }
-        }
+
       }
       int size = service_providers.size() - 1;
       service_providers1.clear();

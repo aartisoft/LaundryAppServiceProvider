@@ -453,6 +453,38 @@ public class LeedRepositoryImpl extends FirebaseTemplateRepository implements Le
     }
 
     @Override
+    public void sendRequestToApproved(Requests request, final CallBack callBack) {
+        DatabaseReference databaseReference = Constant.APPROVED_REQUESTS_TABLE_REF.child(request.getRequestId());
+        fireBaseCreate(databaseReference, request, new CallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                callBack.onSuccess(object);
+            }
+
+            @Override
+            public void onError(Object object) {
+                callBack.onError(object);
+            }
+        });
+    }
+
+    @Override
+    public void sendRequestToComplete(Requests request, final CallBack callBack) {
+        DatabaseReference databaseReference = Constant.COMPLETED_REQUESTS_TABLE_REF.child(request.getRequestId());
+        fireBaseCreate(databaseReference, request, new CallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                callBack.onSuccess(object);
+            }
+
+            @Override
+            public void onError(Object object) {
+                callBack.onError(object);
+            }
+        });
+    }
+
+    @Override
     public void updateRequest(String leedId, Map leedsMap, final CallBack callBack) {
         final DatabaseReference databaseReference = Constant.REQUESTS_TABLE_REF.child(leedId);
         fireBaseUpdateChildren(databaseReference, leedsMap, new CallBack() {

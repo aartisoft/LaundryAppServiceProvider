@@ -23,6 +23,8 @@ public class Constant {
     public static final DatabaseReference SUBCATEGORY_TABLE_REF = DATABASE.getReference("SubCategory");
     public static final DatabaseReference USER_SERVICES_TABLE_REF = DATABASE.getReference("UserServices");
     public static final DatabaseReference REQUESTS_TABLE_REF = DATABASE.getReference("Requests");
+    public static final DatabaseReference APPROVED_REQUESTS_TABLE_REF = DATABASE.getReference("RequestsApproved");
+    public static final DatabaseReference COMPLETED_REQUESTS_TABLE_REF = DATABASE.getReference("RequestsCompleted");
     public static final DatabaseReference ADMIN_TABLE_REF = DATABASE.getReference("Admin");
     public static final DatabaseReference SERVICE_PROVIDER_TABLE_REF = DATABASE.getReference("ServiceProviders");
 

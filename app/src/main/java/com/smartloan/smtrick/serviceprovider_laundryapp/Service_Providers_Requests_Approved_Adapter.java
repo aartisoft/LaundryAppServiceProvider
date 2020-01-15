@@ -14,6 +14,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -64,6 +67,8 @@ public class Service_Providers_Requests_Approved_Adapter extends RecyclerView.Ad
         holder.textViewId.setText(request.getUserPinCode());
         holder.txtstatus.setText(request.getStatus());
 
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("RequestsApproved");
+
         holder.userCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +91,18 @@ public class Service_Providers_Requests_Approved_Adapter extends RecyclerView.Ad
             @Override
             public void onClick(View v) {
 
-                setLeedStatus(request);
+//                setLeedStatus(request);
+                leedRepository.sendRequestToComplete(request, new CallBack() {
+                    @Override
+                    public void onSuccess(Object object) {
+                        ref.child(request.getRequestId()).removeValue();
+                    }
+
+                    @Override
+                    public void onError(Object object) {
+
+                    }
+                });
             }
             private void setLeedStatus(Requests user) {
                 user.setStatus(STATUS_COMPLETE);

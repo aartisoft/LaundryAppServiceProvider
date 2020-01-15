@@ -31,6 +31,10 @@ public interface LeedRepository {
 
     void sendRequest(final Requests request, final CallBack callback);
 
+    void sendRequestToApproved(final Requests request, final CallBack callback);
+
+    void sendRequestToComplete(final Requests request, final CallBack callback);
+
     void updateRequest(final String leedId, final Map leedsMap, final CallBack callBack);
 
     void updateServiceProvider(final String leedId, final Map leedsMap, final CallBack callBack);
