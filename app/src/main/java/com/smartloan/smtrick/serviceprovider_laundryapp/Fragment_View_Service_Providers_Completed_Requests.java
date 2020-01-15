@@ -127,7 +127,7 @@ public class Fragment_View_Service_Providers_Completed_Requests extends Fragment
       //iterating through all the values in database
       for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
         Requests requests = postSnapshot.getValue(Requests.class);
-        
+
             service_providers.add(requests);
 
       }
